@@ -68,15 +68,15 @@ echo "*-------------------------------------------------------------------------
 
 loader(){
     
-    menu "| 1  - Install Docker  \n| 2  - Unistall\n| 0  - Exit"
+    menu "| 1  - Install Docker (method 1)  \n| 2  - Install Docker (method 2) \n| 0  - Exit"
     
     read -p "Enter option number: " choice
     case $choice in
         1)
-            install_command
+            install_command_1
         ;;
         2)
-            unistall
+            install_command_2
         ;;
         0)
             echo -e "${GREEN}Exiting program...${NC}"
@@ -89,7 +89,30 @@ loader(){
     
 }
 
-install_command(){
+install_command_1(){
+
+    # disable systemd-resolved and set dns
+    systemctl stop systemd-resolved
+    systemctl disable systemd-resolved
+    sudo bash -c 'echo -e "nameserver 178.22.122.100\nnameserver 185.51.200.2" > /etc/resolv.conf'
+
+    # Install Requirements
+    #apt-get update; apt-get upgrade -y; apt-get install curl socat git -y
+
+    # python installer
+    rm install.py
+    wget https://raw.githubusercontent.com/AlefbeMedia/irDocker/refs/heads/main/install.py
+    python3 install.py
+    rm install.py
+
+    # Check Docker version
+    docker --version
+
+    # set back dns
+    sudo bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
+}
+
+install_command_2(){
 
     if ! command -v snap &> /dev/null; then
         echo "snapd is not installed. Installing snapd..."
@@ -107,9 +130,6 @@ install_command(){
     # Optionally, start Docker service
     sudo systemctl start snap.docker.dockerd
 
-    wget https://raw.githubusercontent.com/AlefbeMedia/irDocker/refs/heads/main/install.py
-    python3 install.py
-
 }
 
 check_docker_installed() {
@@ -120,18 +140,4 @@ check_docker_installed() {
 
   fi
 }
-
-unistall(){
-    
-    echo $'\e[32mUninstalling Docker in 3 seconds... \e[0m' && sleep 1 && echo $'\e[32m2... \e[0m' && sleep 1 && echo $'\e[32m1... \e[0m' && sleep 1 && {
-        sudo apt-get purge docker-ce docker-ce-cli containerd.io -y
-        sudo rm -rf /var/lib/docker
-        sudo rm -rf /var/lib/containerd
-        rm -rf install.py
-        clear
-        echo 'Docker Unistalled :(';
-    }
-    loader
-}
-
 loader
