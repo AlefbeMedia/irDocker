@@ -9,7 +9,7 @@
 ## نصب
 
 ```
-bash <(curl -Ls https://raw.githubusercontent.com/AlefbeMedia/irDocker/refs/heads/main/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/AlefbeMedia/irDocker/main/install.sh)
 ```
 
 ## 📧 Join Telegram Channel
