@@ -107,9 +107,6 @@ install_command_1(){
 
     # Check Docker version
     docker --version
-
-    # set back dns
-    sudo bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
 }
 
 install_command_2(){
@@ -120,6 +117,11 @@ install_command_2(){
         sudo apt install snapd
     fi
 
+    # disable systemd-resolved and set dns
+    systemctl stop systemd-resolved
+    systemctl disable systemd-resolved
+    sudo bash -c 'echo -e "nameserver 178.22.122.100\nnameserver 185.51.200.2" > /etc/resolv.conf'
+    
     # Install Docker using snap
     echo "Installing Docker using snap..."
     sudo snap install docker
