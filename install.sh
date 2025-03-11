@@ -97,7 +97,7 @@ install_command_1(){
     sudo bash -c 'echo -e "nameserver 178.22.122.100\nnameserver 185.51.200.2" > /etc/resolv.conf'
 
     # Install Requirements
-    #apt-get update; apt-get upgrade -y; apt-get install curl socat git -y
+    apt-get update; apt-get upgrade -y; apt-get install curl socat git -y
 
     # python installer
     rm install.py
