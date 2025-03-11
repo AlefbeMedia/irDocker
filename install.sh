@@ -5,6 +5,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 plain='\033[0m'
 NC='\033[0m'
+BOLD='\033[1m'
 
 
 cur_dir=$(pwd)
@@ -68,7 +69,7 @@ echo "*-------------------------------------------------------------------------
 
 loader(){
     
-    menu "| 1  - Install Docker (method 1) \n| 2  - Install Docker (method 2) \n| 0  - Exit"
+    menu "| 1  - Install Docker (method 1) ${YELLOW}${BOLD}Slow / Recommended ✅${NC} \n|\n| 2  - Install Docker (method 2) ${YELLOW}${BOLD}Fast / NOT Recommended ⚠️${NC} \n|\n| 0  - Exit"
     
     read -p "Enter option number: " choice
     case $choice in
@@ -117,7 +118,7 @@ install_command_2(){
     # Install Requirements
     apt-get update; apt-get upgrade -y; apt-get install curl socat git -y
 
-    # sna check
+    # snap check
     if ! command -v snap &> /dev/null; then
         echo "snapd is not installed. Installing snapd..."
         apt install snapd
@@ -126,7 +127,7 @@ install_command_2(){
     # disable systemd-resolved and set dns
     systemctl stop systemd-resolved
     systemctl disable systemd-resolved
-    bash -c 'echo -e "nameserver 178.22.122.100\nnameserver 185.51.200.2" > /etc/resolv.conf'
+    bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
     
     # Install Docker using snap
     echo "Installing Docker using snap..."
@@ -135,12 +136,6 @@ install_command_2(){
     # Check Docker version
     docker --version
 
-    # Optionally, start Docker service
-    systemctl start snap.docker.dockerd
-
-    # set back dns
-    bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
-
     # set mirror list docker
     bash -c 'cat > /var/snap/docker/current/config/daemon.json <<EOF
 {
@@ -148,6 +143,9 @@ install_command_2(){
   "registry-mirrors": ["https://docker.arvancloud.ir"]
 }
 EOF'
+
+    # restart docker 
+    snap restart docker
 
 }
 
