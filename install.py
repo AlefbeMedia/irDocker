@@ -17,9 +17,14 @@ def install_docker():
 def configure_docker():
     os.makedirs('/etc/docker', exist_ok=True)
     with open('/etc/docker/daemon.json', 'w') as f:
-        f.write('{\n  "registry-mirrors": ["https://docker.iranserver.com"]\n}')
+        f.write('{\n'
+                 '  "insecure-registries": ["https://docker.arvancloud.ir"],\n'
+                 '  "registry-mirrors": ["https://docker.arvancloud.ir"]\n'
+                 '}')
+    subprocess.run(['docker', 'logout'], check=True)
     subprocess.run(['systemctl', 'daemon-reload'], check=True)
     subprocess.run(['systemctl', 'restart', 'docker'], check=True)
+
 
 if __name__ == "__main__":
     progress_thread = threading.Thread(target=show_progress)
@@ -27,6 +32,6 @@ if __name__ == "__main__":
     progress_thread.start()
     
     install_docker()
-    #configure_docker()
+    configure_docker()
 
     print("All tasks completed successfully.")
