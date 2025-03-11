@@ -68,7 +68,7 @@ echo "*-------------------------------------------------------------------------
 
 loader(){
     
-    menu "| 1  - Install Docker (method 1)  \n| 2  - Install Docker (method 2) \n| 0  - Exit"
+    menu "| 1  - Install Docker (method 1 ) *Recommended  \n| 2  - Install Docker (method 2) \n| 0  - Exit"
     
     read -p "Enter option number: " choice
     case $choice in
