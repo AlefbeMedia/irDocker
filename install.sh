@@ -57,18 +57,18 @@ echo "*-------------------------------------------------------------------------
     echo -e "|${GREEN}Server IP         |${NC} $SERVER_IP"
     echo -e "|${GREEN}Server ISP        |${NC} $SERVER_ISP"
     echo -e "|${GREEN}Server Docker     |${NC} $Docker_CORE"
-    echo "+--------------------------------------------------------------------------------------+"
+    echo "*---------------------------------------------------------------------------------------------*"
     echo -e "|${YELLOW}Please choose an option:${NC}"
-    echo "+--------------------------------------------------------------------------------------+"
+    echo "*---------------------------------------------------------------------------------------------*"
     echo -e $1
-    echo "+--------------------------------------------------------------------------------------+"
+    echo "*---------------------------------------------------------------------------------------------*"
     echo -e "\033[0m"
 }
 
 
 loader(){
     
-    menu "| 1  - Install Docker (method 1 ) *Recommended  \n| 2  - Install Docker (method 2) \n| 0  - Exit"
+    menu "| 1  - Install Docker (method 1) \n| 2  - Install Docker (method 2) \n| 0  - Exit"
     
     read -p "Enter option number: " choice
     case $choice in
@@ -136,9 +136,9 @@ install_command_2(){
 
 check_docker_installed() {
   if command -v docker &> /dev/null; then
-    echo -e "${GREEN}Docker is installed.${NC}"
+    echo -e "${GREEN}✅ Docker is installed.${NC}"
   else
-    echo -e "${RED}Docker is not installed.${NC}"
+    echo -e "${RED}❌ Docker is not installed.${NC}"
 
   fi
 }
