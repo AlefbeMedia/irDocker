@@ -27,6 +27,6 @@ if __name__ == "__main__":
     progress_thread.start()
     
     install_docker()
-    configure_docker()
+    #configure_docker()
 
     print("All tasks completed successfully.")
