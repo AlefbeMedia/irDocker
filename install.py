@@ -21,7 +21,7 @@ def check_docker_installation():
         return True
 
 def apply_dns_settings():
-    subprocess.run(['sudo', 'bash', '-c', 'echo -e "\nDNS=dns.403.online\nDNSOverTLS=yes" >> /etc/systemd/resolved.conf && echo -e "nameserver 10.202.10.202\nnameserver 10.202.10.102" > /etc/resolv.conf && systemctl restart systemd-resolved'], check=True)
+    subprocess.run(['sudo', 'bash', '-c', 'echo -e "nameserver 10.202.10.202\nnameserver 10.202.10.102" > /etc/resolv.conf'], check=True)
 
 def install_docker():
     subprocess.run('curl -fsSL https://get.docker.com | sh', shell=True, check=True)
