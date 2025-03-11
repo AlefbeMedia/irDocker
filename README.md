@@ -12,6 +12,11 @@
 bash <(curl -Ls https://raw.githubusercontent.com/AlefbeMedia/irDocker/main/install.sh)
 ```
 
+## اسکرین شات
+<p align="center">
+    <img width="100%" src="https://raw.githubusercontent.com/AlefbeMedia/irDocker/main/docker-prw.jpg" alt="Image">
+</p>
+
 ## 📧 Join Telegram Channel
 
 TG : https://t.me/+VXskKuUuOBEPUB8i
