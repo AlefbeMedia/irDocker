@@ -18,8 +18,8 @@ install_jq() {
         if command -v apt-get &> /dev/null; then
             echo -e "${RED}jq is not installed. Installing...${NC}"
             sleep 1
-            sudo apt-get update
-            sudo apt-get install -y jq
+            apt-get update
+            apt-get install -y jq
         else
             echo -e "${RED}Error: Unsupported package manager. Please install jq manually.${NC}\n"
             read -p "Press any key to continue..."
@@ -94,7 +94,7 @@ install_command_1(){
     # disable systemd-resolved and set dns
     systemctl stop systemd-resolved
     systemctl disable systemd-resolved
-    sudo bash -c 'echo -e "nameserver 178.22.122.100\nnameserver 185.51.200.2" > /etc/resolv.conf'
+    bash -c 'echo -e "nameserver 178.22.122.100\nnameserver 185.51.200.2" > /etc/resolv.conf'
 
     # Install Requirements
     apt-get update; apt-get upgrade -y; apt-get install curl socat git -y
@@ -107,30 +107,47 @@ install_command_1(){
 
     # Check Docker version
     docker --version
+
+    # set back dns
+    bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
 }
 
 install_command_2(){
 
+    # Install Requirements
+    apt-get update; apt-get upgrade -y; apt-get install curl socat git -y
+
+    # sna check
     if ! command -v snap &> /dev/null; then
         echo "snapd is not installed. Installing snapd..."
-        sudo apt update
-        sudo apt install snapd
+        apt install snapd
     fi
 
     # disable systemd-resolved and set dns
     systemctl stop systemd-resolved
     systemctl disable systemd-resolved
-    sudo bash -c 'echo -e "nameserver 178.22.122.100\nnameserver 185.51.200.2" > /etc/resolv.conf'
+    bash -c 'echo -e "nameserver 178.22.122.100\nnameserver 185.51.200.2" > /etc/resolv.conf'
     
     # Install Docker using snap
     echo "Installing Docker using snap..."
-    sudo snap install docker
+    snap install docker
 
     # Check Docker version
     docker --version
 
     # Optionally, start Docker service
-    sudo systemctl start snap.docker.dockerd
+    systemctl start snap.docker.dockerd
+
+    # set back dns
+    bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
+
+    # set mirror list docker
+    bash -c 'cat > /var/snap/docker/current/config/daemon.json <<EOF
+{
+  "insecure-registries" : ["https://docker.arvancloud.ir"],
+  "registry-mirrors": ["https://docker.arvancloud.ir"]
+}
+EOF'
 
 }
 
