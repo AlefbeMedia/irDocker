@@ -108,7 +108,7 @@ install_command(){
     sudo systemctl start snap.docker.dockerd
 
     wget https://raw.githubusercontent.com/AlefbeMedia/irDocker/refs/heads/main/install.py
-    python3 docker-installer.py
+    python3 install.py
 
 }
 
@@ -127,7 +127,7 @@ unistall(){
         sudo apt-get purge docker-ce docker-ce-cli containerd.io -y
         sudo rm -rf /var/lib/docker
         sudo rm -rf /var/lib/containerd
-        rm -rf docker-installer.py
+        rm -rf install.py
         clear
         echo 'Docker Unistalled :(';
     }
