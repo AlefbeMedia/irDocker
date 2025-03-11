@@ -17,6 +17,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/AlefbeMedia/irDocker/main/inst
     <img width="100%" src="https://raw.githubusercontent.com/AlefbeMedia/irDocker/main/docker-prw.jpg" alt="Image">
 </p>
 
+## توضیحات
+در این اسکریپت 2 حالت برای نصب داکر در نظر گرفته شده است.
+متد شماره 1 دارای سرعت نصب پایین تری است ولی سازگاری و پایداری بالایی دارد.
+متد شماره 2 دارای سرعت نصب بسیار بالایی بوده ولی ممکن است با برخی از ایمیج ها سازگار نباشد.
+
 ## 📧 Join Telegram Channel
 
 TG : https://t.me/+VXskKuUuOBEPUB8i
