@@ -125,11 +125,6 @@ install_command_2(){
         echo "snapd is not installed. Installing snapd..."
         apt install snapd
     fi
-
-    # disable systemd-resolved and set dns
-    systemctl stop systemd-resolved
-    systemctl disable systemd-resolved
-    bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
     
     # Install Docker using snap
     echo "Installing Docker using snap..."
@@ -148,10 +143,6 @@ EOF'
 
     # restart docker 
     snap restart docker
-
-    # set back systemd-resolved
-    systemctl enable systemd-resolved
-    systemctl start systemd-resolved
 
 }
 
