@@ -110,6 +110,8 @@ install_command_1(){
     docker --version
 
     # set back dns
+    systemctl enable systemd-resolved
+    systemctl start systemd-resolved
     bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
 }
 
@@ -146,6 +148,10 @@ EOF'
 
     # restart docker 
     snap restart docker
+
+    # set back systemd-resolved
+    systemctl enable systemd-resolved
+    systemctl start systemd-resolved
 
 }
 
